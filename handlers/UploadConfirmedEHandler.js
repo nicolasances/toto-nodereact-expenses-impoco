@@ -1,4 +1,4 @@
-var totoEventPublisher = require('./TotoEventPublisher');
+var totoEventPublisher = require('toto-event-publisher');
 
 exports.do = (event) => {
 
