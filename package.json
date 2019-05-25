@@ -11,7 +11,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "toto-api-controller": "^4.7.2",
-    "toto-event-consumer": "^4.1.0",
+    "toto-event-consumer": "^5.0.0",
     "toto-event-publisher": "^4.0.3",
     "toto-logger": "^4.0.0",
     "toto-request": "^4.2.0"
