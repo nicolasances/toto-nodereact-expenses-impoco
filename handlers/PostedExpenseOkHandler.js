@@ -7,6 +7,8 @@ var moment = require('moment-timezone');
 
 exports.do = (event) => {
 
-  console.log('Got an OK! Status: ' + event.statusId);
+  // Update the status of the expense to 'OK'
+  putStatus.do(event.statusId, status.OK);
+
 
 }
