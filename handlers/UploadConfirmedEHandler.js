@@ -35,31 +35,34 @@ exports.do = (event) => {
 
       // Create the post expense event
       expEvent = {
-        date: exp.date,
-        amount: Math.abs(exp.amount),
-        currency: exp.currency ? exp.currency : 'EUR',
-        description: exp.description,
-        category: 'VARIE',
-        yearMonth: data.yearMonth,
-        user: data.user
+        correlationId: correlationId,
+        expense: {
+          date: exp.date,
+          amount: Math.abs(exp.amount),
+          currency: exp.currency ? exp.currency : 'EUR',
+          description: exp.description,
+          category: 'VARIE',
+          yearMonth: data.yearMonth,
+          user: data.user
+        }
       }
 
       // Persist state of the event
       postStatus.do({
         monthId: monthId,
-        correlationId: correlationId,
         time: moment().format('YYYYMMDD.HH.mm.ss'),
         status: status.SENDING,
         event: expEvent
       }).then((data) => {
 
-        let id = data.id;
+        // Add the posted status id to the event, so that when we get a response we can update the status
+        expEvent.statusId = data.id;
 
         // Post each expense on an event
         totoEventPublisher.publishEvent('expenseToBePosted', expEvent);
 
         // Update the state of the event as "POSTED"
-        putStatus.do(id, status.SENT);
+        putStatus.do(expEvent.statusId, status.SENT);
 
       })
 

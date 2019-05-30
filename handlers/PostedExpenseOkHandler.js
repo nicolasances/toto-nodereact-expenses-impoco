@@ -7,6 +7,6 @@ var moment = require('moment-timezone');
 
 exports.do = (event) => {
 
-
+  console.log('Got an OK! Status: ' + event.statusId);
 
 }
