@@ -43,7 +43,11 @@ exports.do = (event) => {
           description: exp.description,
           category: 'VARIE',
           yearMonth: data.yearMonth,
-          user: data.user
+          user: data.user,
+          additionalData: {
+            source: 'bank-statement',
+            monthId: monthId
+          }
         }
       }
 
