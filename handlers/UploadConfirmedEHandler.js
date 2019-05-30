@@ -55,8 +55,6 @@ exports.do = (event) => {
         event: expEvent
       }).then((data) => {
 
-        console.log(data);
-
         // Post each expense on an event
         totoEventPublisher.publishEvent('expenseToBePosted', {...data.event, status: data.id});
 

@@ -23,6 +23,8 @@ exports.do = function(status) {
 
         db.close();
 
+        console.log(res);
+
         success({...status, id: res.insertedId});
 
       });
