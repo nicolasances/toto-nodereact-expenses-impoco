@@ -19,11 +19,9 @@ exports.do = function(status) {
 
     return MongoClient.connect(config.mongoUrl, function(err, db) {
 
-      db.db(config.dbName).collection(config.collections.statuses).insert(stat, function(err, res) {
+      db.db(config.dbName).collection(config.collections.statuses).insertOne(stat, function(err, res) {
 
         db.close();
-
-        console.log(res);
 
         success({...status, id: res.insertedId});
 
