@@ -1,6 +1,10 @@
 var totoEventPublisher = require('toto-event-publisher');
 var http = require('toto-request');
 var logger = require('toto-logger');
+var postStatus = require('../status/PostStatus');
+var putStatus = require('../status/PutStatus');
+var status = require('../status/Status');
+var moment = require('moment-timezone');
 
 exports.do = (event) => {
 
@@ -40,8 +44,24 @@ exports.do = (event) => {
         user: data.user
       }
 
-      // Post each expense on an event
-      totoEventPublisher.publishEvent('expenseToBePosted', expEvent);
+      // Persist state of the event
+      postStatus.do({
+        monthId: monthId,
+        correlationId: correlationId,
+        time: moment().format('YYYYMMDD.HH.mm.ss'),
+        status: status.SENDING,
+        event: expEvent
+      }).then((data) => {
+
+        let id = data.id;
+
+        // Post each expense on an event
+        totoEventPublisher.publishEvent('expenseToBePosted', expEvent);
+
+        // Update the state of the event as "POSTED"
+        putStatus.do(id, status.SENT);
+
+      })
 
     }
   })

@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "moment-timezone": "^0.5.25",
+    "mongodb": "^3.2.6",
     "toto-api-controller": "^4.7.2",
     "toto-event-consumer": "^5.0.0",
     "toto-event-publisher": "^4.0.3",

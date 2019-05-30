@@ -3,7 +3,11 @@ var TotoEventConsumer = require('toto-event-consumer');
 var totoEventPublisher = require('toto-event-publisher');
 var logger = require('toto-logger');
 
+var getStatus = require('./status/GetStatus');
+
 var uploadConfirmedEHandler = require('./handlers/UploadConfirmedEHandler');
+var postedExpenseOkHandler = require('./handlers/PostedExpenseOkHandler');
+var postedExpenseFailedHandler = require('./handlers/PostedExpenseFailedHandler');
 
 var apiName = 'expenses-impoco';
 
@@ -11,8 +15,10 @@ var apiName = 'expenses-impoco';
 totoEventPublisher.registerTopic({topicName: 'expenseToBePosted', microservice: apiName}).then(() => {}, (err) => {console.log(err);});
 
 // EVENT IN : When an upload is confirmed
-var eventConsumer = new TotoEventConsumer(apiName, 'expensesUploadConfirmed', uploadConfirmedEHandler.do);
+var eventConsumer = new TotoEventConsumer(apiName, ['expensesUploadConfirmed', 'postedExpensesOk', 'postedExpensesFailed'], [uploadConfirmedEHandler.do, postedExpenseOkHandler.do, postedExpenseFailedHandler.do]);
 
 var api = new Controller(apiName, totoEventPublisher, eventConsumer);
+
+api.path('GET', '/uploads/:monthId/status', getStatus);
 
 api.listen();
