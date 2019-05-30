@@ -55,6 +55,8 @@ exports.do = (event) => {
         event: expEvent
       }).then((data) => {
 
+        console.log(data);
+
         let e = data.event;
 
         // Add the posted status id to the event, so that when we get a response we can update the status
