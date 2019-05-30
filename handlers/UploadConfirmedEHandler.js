@@ -34,7 +34,7 @@ exports.do = (event) => {
       if (exp.amount > 0) continue;
 
       // Create the post expense event
-      expEvent = {
+      let expEvent = {
         correlationId: correlationId,
         expense: {
           date: exp.date,
