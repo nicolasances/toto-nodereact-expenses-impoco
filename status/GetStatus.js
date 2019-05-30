@@ -28,7 +28,7 @@ exports.do = function(req) {
             monthId: docs[i].monthId,
             time: docs[i].time,
             status: docs[i].status,
-            expense: docs[i].expense
+            expense: docs[i].event.expense
           })
         }
 
