@@ -59,7 +59,7 @@ exports.do = (event) => {
         totoEventPublisher.publishEvent('expenseToBePosted', {...data.event, status: data.id});
 
         // Update the state of the event as "POSTED"
-        putStatus.do(e.statusId, status.SENT);
+        putStatus.do(data.id, status.SENT);
 
       })
 
