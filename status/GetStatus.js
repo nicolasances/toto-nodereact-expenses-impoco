@@ -27,7 +27,8 @@ exports.do = function(req) {
           result.push({
             monthId: docs[i].monthId,
             time: docs[i].time,
-            status: docs[i].status
+            status: docs[i].status,
+            expense: docs[i].expense
           })
         }
 
