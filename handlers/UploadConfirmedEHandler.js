@@ -55,13 +55,10 @@ exports.do = (event) => {
         event: expEvent
       }).then((data) => {
 
-        let e = data.event;
-
-        // Add the posted status id to the event, so that when we get a response we can update the status
-        e.statusId = data.id;
+        console.log(data);
 
         // Post each expense on an event
-        totoEventPublisher.publishEvent('expenseToBePosted', e);
+        totoEventPublisher.publishEvent('expenseToBePosted', {...data.event, status: data.id});
 
         // Update the state of the event as "POSTED"
         putStatus.do(e.statusId, status.SENT);
