@@ -4,6 +4,7 @@ var totoEventPublisher = require('toto-event-publisher');
 var logger = require('toto-logger');
 
 var getStatus = require('./status/GetStatus');
+var deleteStatuses = require('./status/DeleteStatuses');
 
 var uploadConfirmedEHandler = require('./handlers/UploadConfirmedEHandler');
 var postedExpenseOkHandler = require('./handlers/PostedExpenseOkHandler');
@@ -20,5 +21,6 @@ var eventConsumer = new TotoEventConsumer(apiName, ['expensesUploadConfirmed', '
 var api = new Controller(apiName, totoEventPublisher, eventConsumer);
 
 api.path('GET', '/uploads/:monthId/status', getStatus);
+api.path('DELETE', '/uploads/:monthId/status', deleteStatuses);
 
 api.listen();
