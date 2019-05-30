@@ -23,7 +23,7 @@ exports.do = function(status) {
 
         db.close();
 
-        success({ids: res.insertedIds});
+        success({...status, ids: res.insertedIds});
 
       });
 
