@@ -26,7 +26,6 @@ exports.do = function(req) {
         for (var i = 0; i < docs.length; i++) {
           result.push({
             monthId: docs[i].monthId,
-            correlationId: docs[i].correlationId,
             time: docs[i].time,
             status: docs[i].status
           })

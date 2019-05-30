@@ -12,7 +12,6 @@ exports.do = function(status) {
 
     let stat = {
       monthId: status.monthId,
-      correlationId: status.correlationId,
       time: status.time,
       status: status.status,
       event: status.event
