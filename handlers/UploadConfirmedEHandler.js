@@ -62,6 +62,8 @@ exports.do = (event) => {
         // Add the posted status id to the event, so that when we get a response we can update the status
         e.statusId = data.id;
 
+        console.log(e);
+
         // Post each expense on an event
         totoEventPublisher.publishEvent('expenseToBePosted', e);
 
