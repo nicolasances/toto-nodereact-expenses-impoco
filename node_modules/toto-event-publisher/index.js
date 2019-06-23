@@ -3,7 +3,7 @@ var moment = require('moment-timezone');
 var logger = require('toto-logger');
 
 Producer = kafka.Producer;
-client = new kafka.KafkaClient({kafkaHost: 'kafka:9092', connectTimeout: 3000, requestTimeout: 6000});
+client = new kafka.KafkaClient({idleConnection: 24 * 60 * 60 * 1000, kafkaHost: 'kafka:9092', connectTimeout: 3000, requestTimeout: 6000});
 producer = new Producer(client);
 
 /**

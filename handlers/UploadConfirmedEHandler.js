@@ -60,15 +60,17 @@ exports.do = (event) => {
       }).then((data) => {
 
         // Post each expense on an event
-        totoEventPublisher.publishEvent('expenseToBePosted', {...data.event, statusId: data.id});
+        totoEventPublisher.publishEvent('expenseToBePosted', {...data.event, statusId: data.id}).then(() => {
+          // Update the state of the event as "POSTED"
+          putStatus.do(data.id, status.SENT);
 
-        // Update the state of the event as "POSTED"
-        putStatus.do(data.id, status.SENT);
+        }, (err) => {
 
-      }, (err) => {
+          logger.compute(correlationId, 'Error in publishing event for month ' + monthId, 'error');
 
-        logger.compute(correlationId, 'Error posting expense to topic expenseToBePosted', 'error');
-        console.log(err);
+          putStatus.do(data.id, status.ERROR);
+
+        });
 
       })
 
