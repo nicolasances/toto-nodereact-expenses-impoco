@@ -61,8 +61,13 @@ exports.do = (event) => {
 
         // Post each expense on an event
         totoEventPublisher.publishEvent('expenseToBePosted', {...data.event, statusId: data.id}).then(() => {
+
+          // IMPORTANT!
+          // Remove the SENT state, cause it could conflict (time race condition) with receiving the "ok" or 'failure' event
+          // resulting in some expenses being updated to SENT after they've just been updated to "OK"
+
           // Update the state of the event as "POSTED"
-          putStatus.do(data.id, status.SENT);
+          // putStatus.do(data.id, status.SENT);
 
         }, (err) => {
 
