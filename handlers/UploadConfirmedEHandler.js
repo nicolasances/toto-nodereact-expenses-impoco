@@ -65,6 +65,11 @@ exports.do = (event) => {
         // Update the state of the event as "POSTED"
         putStatus.do(data.id, status.SENT);
 
+      }, (err) => {
+
+        logger.compute(correlationId, 'Error posting expense to topic expenseToBePosted', 'error');
+        console.log(err);
+
       })
 
     }
